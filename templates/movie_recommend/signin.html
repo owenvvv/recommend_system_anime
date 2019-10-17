@@ -1,0 +1,13 @@
+{% extends "movie_recommend/base.html" %}
+
+{% block content %}
+        <form action="{% url 'auth' %}" method="POST">
+            {% csrf_token %}
+            <h3 align = Center>Sign in </h3>
+            <p> <br><br></p>
+            <p align = Center><input type="search" class="span3" placeholder="User Name" name="name" id="search" autofocus /> </p>
+            <p align = Center><input type="password" class="span3" placeholder="Password" name="pwd" id="search" autofocus /> </p>
+            <p align = Center><button type="submit" class="btn btn-primary btn-large pull-center">Sign in &raquo;</button></p>
+        </form>  
+
+{% endblock content %}

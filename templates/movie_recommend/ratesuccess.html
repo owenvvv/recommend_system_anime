@@ -1,0 +1,13 @@
+{% extends "movie_recommend/base.html" %}
+
+{% block content %}
+
+    <section id="gridSystem">
+        <div class="alert alert-info" style="margin-top: 20px;">
+            <strong>Success!</strong> We have already save your interests <a href="{% url 'movies_recs' %}" class="alert-link">click here to get the recommendation results</a>.
+        </div>
+    </section>
+
+{% endblock content %}
+
+

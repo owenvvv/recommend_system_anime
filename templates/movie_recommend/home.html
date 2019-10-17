@@ -1,0 +1,16 @@
+{% extends "movie_recommend/base.html" %}
+{% block content %}
+<div class="container-fluid bg-2 text-center"  style="width:100%;height:750px;background:url(/static/1.jpg)no-repeat center top;background-size: 100%;padding-top:200px">
+  <h3 class="margin" style="font-size:87px";>What Am I?</h3>
+  <p style="font-size:27px">I am an anime recommender who can help you to find the anime you like,</p>
+    <p style="font-size:27px">please serach something below and find out the anime you interested in  </p>
+ <form action="{% url 'home' %}" method="POST">
+            {% csrf_token %}
+
+            <p align = Center><input type="search" class="span3" placeholder="Say Something" name="data" id="search" autofocus /> </p>
+            <p align = Center><button type="submit" class="btn btn-primary btn-large pull-center">Let me rate &raquo;</button></p>
+     <p style="font-size:12px">By Guanlan Jiang;Koh Zhi Rong Chester;Liu Bingnan;Ruowen Li;Wu Shijun;Zhou Jingyu</p>
+        </form>
+</div>
+
+{% endblock content %}

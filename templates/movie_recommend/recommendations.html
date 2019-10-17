@@ -1,0 +1,70 @@
+{% extends "movie_recommend/base.html" %}
+
+{% block content %}
+    <div class="container">
+    <h4 align=left>Because you liked <strong>{{ animelike1.likename }}</strong>:</h4>
+    <div class="row">
+        <section id="gridSystem">
+            <div class="col-md-3">
+            </div>
+        </section>
+    </div>
+    <div class="row" style="height:300px">
+        <section id="gridSystem">
+            {% for animeID,title,image in animes1 %}
+                <div class="col-md-2">
+                    <div class="thumbnail" style="height:250px">
+                        <a href="https://myanimelist.net/anime/{{ animeID }}" target="_blank">
+                            <img src={{ image }} alt="Lights" style="width:100%;height:100%">
+                            <div class="caption" style="text-align:center">
+                                <p>{{ title }}</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="clearfix visible-xs-block"></div>
+            {% endfor %}
+        </section>
+    </div>
+    <h4 align=left>Because you liked <strong>{{ animelike2.likename }}</strong>:</h4>
+    <div class="row" style="height:300px">
+        <section id="gridSystem">
+            {% for animeID,title,image in animes2 %}
+                <div class="col-md-2">
+                    <div class="thumbnail" style="height:250px">
+                        <a href="https://myanimelist.net/anime/{{ animeID }}" target="_blank">
+                            <img src={{ image }} alt="Lights" style="width:100%;height:100%">
+                            <div class="caption" style="text-align:center">
+                                <p>{{ title }}</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="clearfix visible-xs-block"></div>
+            {% endfor %}
+        </section>
+    </div>
+    {% if animelikeuu %}
+        <h4 align=left>Users with the similary taste like:</h4>
+        <div class="row" style="height:300px">
+            <section id="gridSystem">
+                {% for animeID,title,image in animelikeuu %}
+                    <div class="col-md-2">
+                        <div class="thumbnail" style="height:250px">
+                            <a href="https://myanimelist.net/anime/{{ animeID }}" target="_blank">
+                                <img src={{ image }} alt="Lights" style="width:100%;height:100%">
+                                <div class="caption" style="text-align:center">
+                                    <p>{{ title }}</p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="clearfix visible-xs-block"></div>
+                {% endfor %}
+            </section>
+        </div>
+    {% endif %}
+    <div>
+{% endblock content %}
+
+

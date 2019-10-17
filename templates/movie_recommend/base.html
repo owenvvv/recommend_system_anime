@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>  
+    <meta charset="utf-8">
+    <title>Anime Recommender</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    {% block stylesheets %}
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css" rel="stylesheet">
+        <style type="text/css">
+          body {
+            padding-top: 0px;
+            padding-bottom: 40px;
+          }
+        </style>
+
+    {% endblock stylesheets %}
+    {% block javascript %}
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    {% endblock javascript %}
+  </head>
+
+  <body>
+
+  {% block header %}
+      <nav class="navbar navbar-inverse" style="margin-bottom: 0px;background-color: #010101;">
+          <div class=container-fluid">
+              <div class="navbar-header">
+                  <ul class="nav navbar-nav navbar-left">
+                      <li class="active"><a href="/">Home</a></li>
+                      <li class=""><a href="{% url 'movies_recs' %}">Anime Recommendation</a></li>
+                  </ul>
+                  {% if user.is_authenticated %}
+                      <form class="nav navbar-form navbar-right" action="{% url 'home' %}" method="GET">
+                          <ul class="nav navbar-nav navbar-right">
+                              <div>
+                                  <li style="background-color:#C92525;font-size:14px"
+                                      class="">{{ user.get_username }} </li>
+                                  <li class=""><a href="/signout">Sign Out</a></li>
+                              </div>
+                          </ul>
+                      </form>
+                  {% else %}
+                      <form class="nav navbar-form navbar-right" action="{% url 'auth' %}" method="GET">
+                          {% csrf_token %}
+                          <div>
+                              <input type="submit" name="auth_method" value="Create Account" class="btn btn-default"/>
+                              <input type="submit" name="auth_method" value="Sign In" class="btn btn-default"
+                              />
+                          </div>
+                      </form>
+                  {% endif %}
+
+
+              </div>
+          </div>
+      </nav>
+  {% endblock header %}
+
+          {% block content %}
+          {% endblock content %}
+          {% block footer %}
+              <section id="lines">
+                  <hr>
+              </section>
+              <section id="footer">
+
+              </section>
+          {% endblock footer %}
+
+
+
+  </body>
+</html>
+

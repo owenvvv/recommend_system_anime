@@ -1,0 +1,110 @@
+{% extends "movie_recommend/base.html" %}
+
+{% block javascript %}
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $(".image-checkbox").each(function () {
+                console.log('aaaaaa');
+                if ($(this).find('input[type="checkbox"]').first().attr("checked")) {
+                    $(this).addClass('image-checkbox-checked');
+                } else {
+                    $(this).removeClass('image-checkbox-checked');
+                }
+            });
+            // sync the state to the input
+            $(".image-checkbox").on("click", function (e) {
+                $(this).toggleClass('image-checkbox-checked');
+                var $checkbox = $(this).find('input[type="checkbox"]');
+                $checkbox.prop("checked", !$checkbox.prop("checked"))
+                e.preventDefault();
+            });
+            $("form").submit(function (e) {
+                return Check();
+            });
+            function Check() {
+                var cbs = document.getElementsByTagName("input");
+                var b = false;
+                var count = 0;
+                for (var i = 0; i < cbs.length; i++) {
+                    if (cbs[i].type == "checkbox" && cbs[i].checked) {
+                        b = true;
+                        count++;
+                    }
+                }
+                if (!b) {
+                    alert("You must choose at least one anime");
+                    return false;
+                }
+            }
+        });
+    </script>
+
+    <style type="text/css">
+        .nopad {
+            padding-left: 0 !important;
+            padding-right: 0 !important;
+        }
+        /*image gallery*/
+        .image-checkbox {
+            cursor: pointer;
+            box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+            border: 4px solid transparent;
+            margin-bottom: 0;
+            outline: 0;
+            width: auto;
+            height: 350px;
+            border-color: #454141;
+            opacity: 0.75;
+        }
+        .image-checkbox input[type="checkbox"] {
+            display: none;
+        }
+        .image-checkbox-checked {
+            border-color: #4783B0;
+            width: auto;
+            height: 350px;
+            opacity: 1;
+        }
+        .image-checkbox .fa {
+            position: absolute;
+            color: #4A79A3;
+            background-color: #fff;
+            padding: 20px;
+            top: 0;
+            right: 0;
+            font-size: 22px;
+        }
+        .image-checkbox-checked .fa {
+            display: block !important;
+        }
+    </style>
+{% endblock javascript %}
+{% block content %}
+    <div class="container" >
+    <h3 align=Center>Choose the anime you are interested in </h3>
+    <div align=right style="margin-bottom:5px">
+    <button type="button" class="btn btn-primary btn-md" onclick="location.href='{% url 'home' %}'">I don't like all..</button>
+    </div>
+    <form action="{% url 'rate_movie' %}" method="POST" onsubmit="return Check()">
+        {% csrf_token %}
+        <div class="row">
+            {% for animeindex,title,image in animes %}
+                <div class="col-xs-4 col-sm-3 col-md-3 nopad text-center"  title="{{ title }}">
+                    <label class="image-checkbox" style="width:88%">
+                        <img class="img-responsive" style="width:100%;height:100%" src={{ image }}>
+                        <input type="checkbox" name="interest" value={{ animeindex }}>
+                        <i class="fa fa-check hidden"></i>
+                    </label>
+                </div>
+            {% endfor %}
+        </div>
+        <button type="submit" class="btn btn-primary btn-lg btn-block">Submit</button>
+    </form>
+    <div>
+{% endblock content %}
+
