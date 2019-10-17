@@ -1,5 +1,5 @@
 from scipy.stats import pearsonr
-from scipy.spatial.distance import cosine  # 余弦距离，1-余弦值
+from scipy.spatial.distance import cosine
 
 import numpy as np
 import unicodedata
@@ -19,30 +19,29 @@ class rec_anime(object):
     def rec_II(self, animeid):
         cos_dtm = self.cos_dtm
         cos_gerne = self.cos_gerne
-        cluster=self.cluster
-        cosd = cos_dtm.applymap(lambda x: x / 2)
-        cos_final = cos_gerne.add(cosd, fill_value=0)
+        c = 0.2  # C  is the ratio of differernt models
+        cosd = cos_dtm.applymap(lambda x: x * c)
+        cos_final = cos_gerne.add(cosd, fill_value=0)  # Hybrid Matrix
 
+        # Find the indexlist with the same or different cluster
+        cluster = self.cluster
         cluster1 = cluster.loc[animeid].cluster
         cluster_same = cluster[(cluster['cluster'] == cluster1)]
         cluster_same = cluster_same['Index']
         cluster_diff = cluster[(cluster['cluster'] != cluster1)]
         cluster_diff = cluster_diff['Index']
-
+        # Split the similarity matrix
         cos_same = cos_final.loc[cluster_same]
         cos_diff = cos_final.loc[cluster_diff]
-
+        # Calculate the top4(except itself) of same cluster
         similar_animes_same = list(enumerate(cos_same[str(animeid)]))
         final_list_same = sorted(similar_animes_same, key=lambda x: x[1], reverse=True)[1:5]
-
+        # Calculate the top4(except itself) of different cluster
         similar_animes_diff = list(enumerate(cos_diff[str(animeid)]))
         final_list_diff = sorted(similar_animes_diff, key=lambda x: x[1], reverse=True)[0:2]
-
+        # Conbine two lists
         final_list = final_list_same + final_list_diff
-
         return final_list
-
-
 
     def rec_UU(self, uid):
         uu_matrix = self.uu_matrix
@@ -52,4 +51,3 @@ class rec_anime(object):
             return None
         else:
             return uurec[0:6]
-

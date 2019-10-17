@@ -1,4 +1,4 @@
-from django.shortcuts import render  # 渲染页面
+from django.shortcuts import render
 from django.shortcuts import redirect
 # from django.core.urlresolvers import reverse
 from django.urls import reverse
@@ -9,10 +9,10 @@ import difflib
 import Levenshtein
 
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login  # 处理登录和退出
+from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
 from django.core.cache import cache
-from movie_recommend.models import UserProfile, AnimeRated, AnimeData  # 数据模型
+from movie_recommend.models import UserProfile, AnimeRated, AnimeData  #
 from movie_recommend.recommend_algos import *
 from movie_recommend.load_data import *
 
@@ -23,6 +23,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 import os
 
 BASE_DIR = os.path.dirname(os.path.abspath('__file__'))
+
 
 def home(request):
     # cache.clear()
@@ -84,7 +85,6 @@ def home(request):
 
 
 def auth(request):
-
     if request.method == 'GET':
         data = request.GET
         auth_method = data.get('auth_method')
@@ -127,12 +127,10 @@ def signout(request):
     logout(request)
     return render(request, 'movie_recommend/home.html', {})
 
-def rate_movie(request):
 
+def rate_movie(request):
     data = request.POST.getlist('interest')
     rate = data
-    userprofile = None
-
     if request.user.is_superuser:
         return render(request, 'movie_recommend/superusersignin.html', {})
     elif request.user.is_authenticated:
@@ -153,6 +151,7 @@ def rate_movie(request):
             mr.save()
 
     return render(request, 'movie_recommend/ratesuccess.html', {})
+
 
 def movies_recs(request):
     userprofile = None

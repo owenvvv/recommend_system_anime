@@ -30,9 +30,9 @@ class UserProfile(models.Model):
 
 class AnimeRated(models.Model):
 
-	userid = models.IntegerField()# 用户
-	AnimeID = models.IntegerField(default=-1) # 电影索引
-	value = models.IntegerField() # 打分值
+	userid = models.IntegerField()#
+	AnimeID = models.IntegerField(default=-1) #
+	value = models.IntegerField() #
 
 	def __str__(self):
 		return self.AnimeID
