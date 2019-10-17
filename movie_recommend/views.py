@@ -13,7 +13,7 @@ from django.contrib.auth import authenticate, login  # 处理登录和退出
 from django.contrib.auth import logout
 from django.core.cache import cache
 from movie_recommend.models import UserProfile, AnimeRated, AnimeData  # 数据模型
-from movie_recommend.recommend_algos import *  # 推荐算法模块
+from movie_recommend.recommend_algos import *
 from movie_recommend.load_data import *
 
 import pandas as pd
