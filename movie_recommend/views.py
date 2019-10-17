@@ -23,11 +23,6 @@ from sklearn.metrics.pairwise import cosine_similarity
 import os
 
 BASE_DIR = os.path.dirname(os.path.abspath('__file__'))
-PATH = os.path.join(BASE_DIR, 'umatrix.csv')  # 电影评分矩阵的文件路径
-NMOVIES = 5
-N_MIN_RATES = 5  # 推荐要求用户打过分电影的最低数量
-RECS_METHOD = 'cf_itembased'  # 推荐算法
-NUM_RECS = 5  # 给用户推荐的电影数
 
 def home(request):
     # cache.clear()
@@ -57,18 +52,6 @@ def home(request):
 
         else:
             print('data loaded')
-        """
-		Umatrix = cache.get('umatrix') # 从缓存中加载用户电影评分矩阵
-		if Umatrix.size == 0:
-			
-			df_umatrix = pd.read_csv(open(PATH))
-			print('load umatrix……')
-			Umatrix = df_umatrix.values[:,1:]
-			print ('umatrix',Umatrix.shape)
-			cache.set('umatrix', Umatrix) # 将打分矩阵加入缓存
-			cf_itembased = CF_itembased(Umatrix) # 基于物品的协同过滤算法，模块导入
-			cache.set('cf_itembased', cf_itembased)
-		"""
 
         if not data:
             return render(request, 'movie_recommend/home.html', context)
