@@ -170,23 +170,26 @@ def movies_recs(request):
         return render(request, 'movie_recommend/underminimum.html', context)
     idandtitles = []
     likeidandtitles = []
-    for aid in random.sample(list(reclist_all), 2):
+    for aid in random.sample(list(reclist_all), 2): # Randomly pick 2 of the interested
+        # Information of interested animation
         animeindex = AnimeData.objects.get(animeID=aid).id
         likename = AnimeData.objects.get(animeID=aid).title
         likeinamepath = AnimeData.objects.get(animeID=aid).imagepath
+        # Use the hybrid algorithm to get the result of anime list
         animerec = rec_anime()
         finalindex = animerec.rec_II(animeindex)
         idlist = []
         for index in finalindex:
             idlist.append(index[0])
+        # Use the anime index to fine the information which will shown on the website
         animelist = AnimeData.objects.filter(id__in=idlist)
         likeidandtitle = {'likename': likename, 'likeinamepath': likeinamepath}
         idandtitle = []
         for animeone in animelist:
             x = (animeone.animeID, animeone.title, animeone.imagepath)
             idandtitle.append(x)
-        idandtitles.append(idandtitle)
-        likeidandtitles.append(likeidandtitle)
+        idandtitles.append(idandtitle)   # Recommendation list
+        likeidandtitles.append(likeidandtitle) # interested list
 
     context['animelike1'] = likeidandtitles[0]
     context['animes1'] = idandtitles[0]
