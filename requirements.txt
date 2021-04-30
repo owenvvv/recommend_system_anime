@@ -115,7 +115,7 @@ textblob==0.15.3
 tornado==4.5.2
 traitlets==4.3.2
 Twisted==17.5.0
-urllib3==1.25.6
+urllib3==1.25.8
 w3lib==1.17.0
 wcwidth==0.1.7
 Werkzeug==0.15.6
