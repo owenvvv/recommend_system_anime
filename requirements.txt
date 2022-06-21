@@ -59,7 +59,7 @@ mkl==2019.0
 nbconvert==5.2.1
 nbformat==4.4.0
 nltk==3.4.5
-numpy==1.17.2
+numpy==1.22.0
 numpydoc==0.7.0
 packaging==16.8
 pandas==0.25.1
